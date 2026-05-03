@@ -1,0 +1,27 @@
+﻿@page "/"
+@using StockManagement.Models
+@inject StockManagementService StockManagementService
+
+<PageTitle>Home</PageTitle>
+
+<h1>Gerenciamento</h1>
+if (StockManagement != null)
+{
+    <p>Bem-vindo ao sistema de gerenciamento de estoque!</p>
+    <p>O estoque atual é: @StockManagement.CurrentStock</p>
+
+
+}
+else
+{
+    <p>Carregando informações do estoque...</p>
+}
+
+@code {
+    private StockManagement? StockManagement;
+
+    protected override async Task OnInitializedAsync()
+    {
+        StockManagement = await StockManagementService.GetStockManagementAsync();
+    }
+}
