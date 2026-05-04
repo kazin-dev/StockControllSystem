@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace StockManagement.DbData
 {
-    public class Controllers
+    public class StockManagementService
     {
         public void AddProduct(Product p)
         {

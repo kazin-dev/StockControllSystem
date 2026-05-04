@@ -1,27 +1,84 @@
 ﻿@page "/"
-@using StockManagement.Models
+@rendermode InteractiveServer
+@using StockManagement.DbData
 @inject StockManagementService StockManagementService
 
 <PageTitle>Home</PageTitle>
 
 <h1>Gerenciamento</h1>
-if (StockManagement != null)
-{
-    <p>Bem-vindo ao sistema de gerenciamento de estoque!</p>
-    <p>O estoque atual é: @StockManagement.CurrentStock</p>
 
-
-}
-else
+@* 1. A condição correta: verifica se a LISTA já carregou *@
+@if (products == null)
 {
     <p>Carregando informações do estoque...</p>
 }
+else
+{
+    <p>Bem-vindo ao sistema de gerenciamento de estoque!</p>
+
+    <p>Adicionar um produto</p>
+    <input type="text" @bind="nameProduct" placeholder="Nome do produto" />
+    <input type="text" @bind="descriptionProduct" placeholder="Descrição" />
+    <input type="number" @bind="priceProduct" placeholder="Preço" />
+
+    <button @onclick="AddNewProduct" class="btn btn-primary">Add+</button>
+    <p>Total de produtos no banco: @(products?.Count ?? 0)</p>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in products)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.Price.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
-    private StockManagement? StockManagement;
+    // Variáveis de input
+    private string? nameProduct;
+    private string? descriptionProduct;
+    private decimal priceProduct;
 
-    protected override async Task OnInitializedAsync()
+    // A lista que vai segurar os dados na tela
+    private List<Product>? products;
+
+    // Mudamos para OnInitialized (sem Async) porque seus métodos do Service são síncronos
+    protected override void OnInitialized()
     {
-        StockManagement = await StockManagementService.GetStockManagementAsync();
+        // Puxa os dados assim que a página abre
+        products = StockManagementService.getAllProducts();
+    }
+
+    private void AddNewProduct()
+    {
+        var newProduct = new Product
+        {
+            Name = nameProduct,
+            Description = descriptionProduct,
+            Price = priceProduct
+        };
+
+        // 1. Salva no banco
+        StockManagementService.AddProduct(newProduct);
+
+        // 2. Limpa os campos
+        nameProduct = string.Empty;
+        descriptionProduct = string.Empty;
+        priceProduct = 0;
+
+        // 3. ESSENCIAL: Atualiza a lista da tela com o que está no banco agora
+        products = StockManagementService.getAllProducts();
+
+        // 4. Força o Blazor a redesenhar a página
+        StateHasChanged();
     }
 }

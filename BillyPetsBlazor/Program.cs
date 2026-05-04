@@ -1,11 +1,13 @@
 using BillyPetsBlazor.Components;
+using StockManagement.DbData;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+// Registra o serviço para que o sistema saiba como criá-lo
+builder.Services.AddScoped<StockManagementService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

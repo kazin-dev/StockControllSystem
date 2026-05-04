@@ -4,6 +4,8 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement", "StockManagement\StockManagement.csproj", "{29782078-B112-F559-75A9-6F9D56724421}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillyPetsBlazor", "BillyPetsBlazor\BillyPetsBlazor.csproj", "{A141C52B-5B14-6284-9B9C-4356943EEB79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{29782078-B112-F559-75A9-6F9D56724421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29782078-B112-F559-75A9-6F9D56724421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29782078-B112-F559-75A9-6F9D56724421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A141C52B-5B14-6284-9B9C-4356943EEB79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A141C52B-5B14-6284-9B9C-4356943EEB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A141C52B-5B14-6284-9B9C-4356943EEB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A141C52B-5B14-6284-9B9C-4356943EEB79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

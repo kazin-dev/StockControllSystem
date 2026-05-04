@@ -1,22 +1,24 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace StockManagement.DbData
 {
     public class AppDbContext : DbContext
     {
-        // the data that I want on the table
-        public DbSet<Product>? products {get; set;}
+        public DbSet<Product>? products { get; set; }
 
-        // the path and way to find the db file
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext()
         {
-            var path = Environment.SystemDirectory;
-            var local = System.IO.Path.Combine(path, "Management.db");
-
-            optionsBuilder.UseSqlite($"Data Source = {local}");
+            // Isso garante que o arquivo e as tabelas sejam criados na primeira vez
+            Database.EnsureCreated();
         }
 
-    } 
-        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // Isso sobe 3 níveis de pasta a partir de onde o app roda para tentar chegar na raiz
+            // Mas o jeito mais seguro para você agora é o caminho absoluto:
+            var dbPath = @"C:\Users\kgs04\OneDrive\Documentos\StockControllSystem\Management.db";
+
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        }
+    }
 }
